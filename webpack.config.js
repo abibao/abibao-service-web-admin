@@ -1,28 +1,40 @@
 'use strict'
 
-var Path = require('path')
+var path = require('path')
+var webpack = require('webpack')
 
-var buildPath = Path.resolve(__dirname, 'dist')
-var nodeModulesPath = Path.resolve(__dirname, 'node_modules')
-var contextPath = Path.join(__dirname, '/client')
-var entryPath = Path.join(contextPath, '/app.js')
+var buildPath = path.resolve(__dirname, 'dist')
+var nodeModulesPath = path.resolve(__dirname, 'node_modules')
+var contextPath = path.join(__dirname, '/client')
+var entryPath = path.join(contextPath, '/app.js')
 
 module.exports = {
   context: contextPath,
   entry: entryPath,
-  resolve: ['', '.js', '.jsx'],
+  resolve: ['', '.js', '.tag'],
   output: {
     path: buildPath,
     filename: 'js/app.js'
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      riot: 'riot'
+    })
+  ],
   module: {
-    noParse: ['react'],
+    noParse: ['riot'],
     preLoaders: [{
-      test: /\.(js|jsx)$/,
-      loader: 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0,plugins[]=transform-decorators-legacy,plugins[]=transform-object-rest-spread',
+      test: /\.tag$/,
+      loader: 'riotjs-loader',
+      query: {type: 'babel?presets[]=riot,presets[]=es2015,presets[]=stage-0,plugins[]=transform-decorators-legacy,plugins[]=transform-object-rest-spread'},
       exclude: [nodeModulesPath]
     }],
     loaders: [
+      {
+        test: /\.js|\.tag$/,
+        loader: 'babel-loader',
+        query: {cacheDirectory: true, presets: ['es2015']}
+      },
       {
         test: /index\.html/,
         loader: 'file?name=index.html'
@@ -37,12 +49,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        include: Path.join(contextPath, 'assets/img'),
+        include: path.join(contextPath, 'assets/img'),
         loader: 'url-loader?limit=8192&name=img/[hash].[ext]'
       },
       {
         test: /\.(woff|woff2|svg|ttf|eot)$/,
-        include: Path.join(contextPath, 'assets/fonts'),
+        include: path.join(contextPath, 'assets/fonts'),
         loader: 'url-loader?limit=8192&name=fonts/[hash].[ext]'
       }
     ]

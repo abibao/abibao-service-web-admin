@@ -61,7 +61,6 @@ server.register(plugins, function (err) {
     seneca.add('role:info,cmd:get', (msg, done) => {
       try {
         var dummyDataPath = Path.join(__dirname, '../test/dummy/')
-
         done(null, JSON.parse(require('fs').readFileSync(dummyDataPath + msg.name)))
       } catch (e) {
         done(null, {})
