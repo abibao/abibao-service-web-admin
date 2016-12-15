@@ -1,4 +1,9 @@
-// css
+// styles
+import 'uikit/dist/css/uikit.almost-flat.css'
 
-// entrypoint
-import './bootstrap/router'
+// javascript
+import 'jquery'
+import 'uikit'
+
+// bootstraping
+import './router'

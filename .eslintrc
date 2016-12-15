@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "riot"
   ],
   "parserOptions": {
     ecmaVersion: 6,
@@ -104,8 +104,6 @@
     'operator-linebreak': [2, 'after', { 'overrides': { '?': 'before', ':': 'before' } }],
     'padded-blocks': [2, 'never'],
     'quotes': [2, 'single', 'avoid-escape'],
-    'react/jsx-uses-vars': [2],
-    'react/jsx-uses-react': [1],
     'radix': 2,
     'semi': [2, 'never'],
     'semi-spacing': [2, { 'before': false, 'after': true }],

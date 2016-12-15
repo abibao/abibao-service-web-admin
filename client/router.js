@@ -1,5 +1,7 @@
+/*global riot*/
+
 // pages
-import './../containers/login.tag'
+import './pages/login.tag'
 
 // libs
 import route from 'riot-route'
@@ -36,7 +38,7 @@ class Router {
       this._currentView.unmount(true)
     }
     riot.routeState.view = view
-    this._currentView = riot.mount('#app', view, opts)[0]
+    this._currentView = riot.mount('#view', view, opts)[0]
   }
 
 }

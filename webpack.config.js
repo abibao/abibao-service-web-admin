@@ -1,12 +1,12 @@
 'use strict'
 
-var path = require('path')
-var webpack = require('webpack')
-
-var buildPath = path.resolve(__dirname, 'dist')
-var nodeModulesPath = path.resolve(__dirname, 'node_modules')
-var contextPath = path.join(__dirname, '/client')
-var entryPath = path.join(contextPath, '/app.js')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const nodeModulesPath = path.resolve(__dirname, 'node_modules')
+const buildPath = path.resolve(__dirname, 'dist')
+const contextPath = path.join(__dirname, '/client')
+const entryPath = path.join(contextPath, '/app.js')
 
 module.exports = {
   context: contextPath,
@@ -14,11 +14,19 @@ module.exports = {
   resolve: ['', '.js', '.tag'],
   output: {
     path: buildPath,
-    filename: 'js/app.js'
+    filename: 'js/bundle.js'
   },
   plugins: [
     new webpack.ProvidePlugin({
-      riot: 'riot'
+      riot: 'riot',
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      'window.$': 'jquery'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Abibao Service / Administrator',
+      template: 'index.ejs'
     })
   ],
   module: {
@@ -52,10 +60,13 @@ module.exports = {
         include: path.join(contextPath, 'assets/img'),
         loader: 'url-loader?limit=8192&name=img/[hash].[ext]'
       },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
       {
         test: /\.(woff|woff2|svg|ttf|eot)$/,
         include: path.join(contextPath, 'assets/fonts'),
-        loader: 'url-loader?limit=8192&name=fonts/[hash].[ext]'
+        loader: 'url-loader?limit=8192&name=fonts/[hash].[ext]',
+        exclude: [nodeModulesPath]
       }
     ]
   }
