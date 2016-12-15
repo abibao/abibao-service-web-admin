@@ -2,6 +2,7 @@
 
 // pages
 import './pages/login.tag'
+import './pages/dashboard.tag'
 
 // libs
 import route from 'riot-route'

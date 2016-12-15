@@ -52,8 +52,9 @@ module.exports = {
         loader: 'style-loader!css-loader!postcss-loader'
       },
       {
-        test: /\.styl/,
-        loader: 'style-loader!css-loader!postcss-loader!stylus-loader'
+        test: /\.(png|jpg|gif|svg)$/,
+        include: [nodeModulesPath],
+        loader: 'url-loader?limit=8192&name=img/[hash].[ext]'
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
