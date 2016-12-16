@@ -1,23 +1,37 @@
 <login>
-  <div class="uk-vertical-align uk-text-center uk-height-1-1">
-    <div class="uk-vertical-align-middle" style="width: 250px;">
-      <img class="uk-margin-bottom" src="/img/abibao-logo-gris-jaune.png" alt="">
-      <form class="uk-panel uk-panel-box uk-form">
-        <div class="uk-form-row">
-          <input id="email" class="uk-width-1-1 uk-form-large" type="text" placeholder="Email">
+  <div class="ui-color-dark-blue ui-width-1-1 ui-height-1-1">
+    <div class="container ui-height-1-1 ">
+      <div class="row valign-wrapper ui-height-1-1">
+        <div class="card white ui-width-1-1 valign col s12 m6 offset-m3 l4 offset-l4">
+          <div class="card-content ui-color-dark-blue-text">
+            <span class="card-title">
+              <img src="/img/abibao-logo-gris-jaune.png">
+            </span>
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="email" type="email" placeholder="Votre email" class="validate">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="password" type="password" placeholder="Votre mot de passe" class="validate">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card-action center-align">
+            <a class="btn waves-effect waves-light ui-color-light-blue">Se connecter</a>
+          </div>
         </div>
-        <div class="uk-form-row">
-          <input id="password" class="uk-width-1-1 uk-form-large" type="password" placeholder="Mot de passe">
-        </div>
-        <div class="uk-form-row">
-          <button type="button" onclick={ loginHandler } class="uk-width-1-1 uk-button uk-button-primary uk-button-large">Login</button>
-        </div>
-        <div class="uk-form-row uk-text-small">
-          <h4>Pour toutes questions concernant votre compte, veuillez contacter nous contacter sur <a href="mailto:administrateur@abibao.com">administrateur@abibao.com</a>.</h4>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
   <style scoped>
+    .row {
+      margin-bottom: 0!important;
+    }
   </style>
 </login>

@@ -1,9 +1,10 @@
 // styles
-import 'uikit/dist/css/uikit.almost-flat.css'
+import 'materialize-css/dist/css/materialize.css'
+import './assets/css/styles.less'
 
 // javascript
 import 'jquery'
-import 'uikit'
+import 'materialize-css/dist/js/materialize.js'
 
 // bootstraping
 import './router'

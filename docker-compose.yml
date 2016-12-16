@@ -1,0 +1,16 @@
+version: '2'
+services:
+  limbo:
+    image: "viadeo-webapp:squashed"
+    container_name: "dev_limbo_docker"
+    ports:
+      - "3000:3000"
+    links:
+      - "memcached"
+    depends_on:
+      - "memcached"
+  memcached:
+    image: "memcached"
+    container_name: "dev_memcached_docker"
+    ports:
+      - "11211:11211"
