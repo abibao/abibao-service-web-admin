@@ -1,83 +1,48 @@
 'use strict'
 
-var PORT = process.env.PORT || 8000
+const Sequelize = require('sequelize')
+const serveStatic = require('feathers').static
+const compress = require('compression')
+const cors = require('cors')
+const feathers = require('feathers')
+const configuration = require('feathers-configuration')
+const hooks = require('feathers-hooks')
+const rest = require('feathers-rest')
+const bodyParser = require('body-parser')
+const socketio = require('feathers-socketio')
+const middlewares = require('./middlewares')
+const services = require('./services')
 
-// Our hapi server bits
-var Chairo = require('chairo')
-var Hapi = require('hapi')
-var Inert = require('inert')
-var Path = require('path')
-var Seneca = require('seneca')()
-Seneca.use('entity')
+const app = feathers()
 
-// Our server routes
-var ClientRoutes = require('./routes/client')
-var ApiRoutes = require('./routes/api')
+app.configure(configuration())
 
-var envs = process.env
-var opts = {
-  vidi_metrics: {
-    emitter: {
-      enabled: false
-    }
-  },
-  seneca_metrics: {
-    group: 'abibao-service',
-    tag: 'abibao-service-web-admin',
-    pins: [
-      'role:info,cmd:get',
-      'role:search,cmd:search'
-    ]
+app.sequelize = new Sequelize(app.get('mysql').database, app.get('mysql').username, app.get('mysql').password, {
+  dialect: 'mariadb',
+  host: app.get('mysql').host,
+  port: app.get('mysql').port,
+  logging: console.log
+})
+
+const whitelist = app.get('corsWhitelist')
+const corsOptions = {
+  origin (origin, callback) {
+    const originIsWhitelisted = whitelist.indexOf(origin) !== -1
+    callback(null, originIsWhitelisted)
   }
 }
 
-function endIfErr (err) {
-  if (err) {
-    console.error(err)
-    process.exit(1)
-  }
-}
+app.use(compress())
+  .options('*', cors(corsOptions))
+  .use(cors(corsOptions))
+  .use('/', serveStatic(app.get('public')))
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
+  .configure(hooks())
+  .configure(rest())
+  .configure(socketio())
+  .configure(services)
+  .configure(middlewares)
 
-var server = new Hapi.Server()
-server.connection({port: PORT})
-
-var plugins = [
-  {register: Chairo, options: {seneca: Seneca}},
-  Inert
-]
-
-server.register(plugins, function (err) {
-  endIfErr(err)
-
-  var relativePath = Path.join(__dirname, '../dist/')
-  server.realm.settings.files.relativeTo = relativePath
-
-  server.route(ClientRoutes)
-  server.route(ApiRoutes)
-
-  var seneca = server.seneca
-
-  if (envs.RUN_ISOLATED) {
-    seneca.add('role:info,cmd:get', (msg, done) => {
-      try {
-        var dummyDataPath = Path.join(__dirname, '../test/dummy/')
-        done(null, JSON.parse(require('fs').readFileSync(dummyDataPath + msg.name)))
-      } catch (e) {
-        done(null, {})
-      }
-    })
-  } else {
-    var meshOpts = {
-      auto: true,
-      host: envs.WEB_HOST || '127.0.0.1',
-      bases: [envs.BASE_HOST || '127.0.0.1:39999']
-    }
-
-    seneca.use('mesh', meshOpts)
-    seneca.use('vidi-metrics', opts.vidi_metrics)
-    seneca.use('vidi-seneca-metrics', opts.seneca_metrics)
-  }
-
-  seneca.log.info('hapi', server.info)
-  server.start(endIfErr)
+app.listen(app.get('port'), app.get('host'), () => {
 })

@@ -1,16 +1,16 @@
 version: '2'
+
 services:
-  limbo:
-    image: "viadeo-webapp:squashed"
-    container_name: "dev_limbo_docker"
+
+  couchdb:
+    image: library/mariadb:latest
+    container_name: abibao_service
+    environment:
+      MYSQL_ROOT_PASSWORD: abibao
+      MYSQL_DATABASE: abibao
+      MYSQL_USER: abibao
+      MYSQL_PASSWORD: abibao
+    volumes:
+      - /home/gperreymond/Workspaces/abibao-service-web-admin/volumes/databases/mariadb:/var/lib/mysql
     ports:
-      - "3000:3000"
-    links:
-      - "memcached"
-    depends_on:
-      - "memcached"
-  memcached:
-    image: "memcached"
-    container_name: "dev_memcached_docker"
-    ports:
-      - "11211:11211"
+      - 3306:3306

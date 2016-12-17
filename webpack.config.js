@@ -21,9 +21,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       riot: 'riot',
       $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      'window.$': 'jquery'
+      PouchDB: 'pouchdb'
     }),
     new HtmlWebpackPlugin({
       title: 'Abibao Service / Administrator',
@@ -32,12 +30,9 @@ module.exports = {
   ],
   module: {
     noParse: ['riot'],
-    preLoaders: [{
-      test: /\.tag$/,
-      loader: 'riotjs-loader',
-      query: {type: 'babel?presets[]=riot,presets[]=es2015,presets[]=stage-0,plugins[]=transform-decorators-legacy,plugins[]=transform-object-rest-spread'},
-      exclude: [nodeModulesPath]
-    }],
+    preLoaders: [
+      { test: /\.tag$/, exclude: /node_modules/, loader: 'riotjs-loader', query: { type: 'babel' } }
+    ],
     loaders: [
       {
         test: /\.js|\.tag$/,

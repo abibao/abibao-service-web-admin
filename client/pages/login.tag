@@ -1,4 +1,5 @@
 <login>
+
   <div class="ui-color-dark-blue ui-width-1-1 ui-height-1-1">
     <div class="container ui-height-1-1 ">
       <div class="row valign-wrapper ui-height-1-1">
@@ -29,9 +30,16 @@
       </div>
     </div>
   </div>
+
+  <script>
+    this.on('mount', () => {
+    })
+  </script>
+
   <style scoped>
     .row {
       margin-bottom: 0!important;
     }
   </style>
+
 </login>
