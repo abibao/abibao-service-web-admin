@@ -7,7 +7,7 @@ const fse = require('fs-extra')
 const colors = require('colors/safe')
 const rp = require('request-promise')
 
-const patternPath = path.resolve(__dirname, '../volumes/prod/rethinkdb/entities') + '/*.json'
+const patternPath = path.resolve(__dirname, '../volumes/prod/rethinkdb/campaigns_items_choices') + '/*.json'
 const files = glob.sync(patternPath, {
   nodir: true,
   dot: true,
@@ -15,11 +15,11 @@ const files = glob.sync(patternPath, {
 })
 
 async.mapSeries(files, (filepath, next) => {
-  const entity = fse.readJsonSync(filepath)
+  const campaignItemChoice = fse.readJsonSync(filepath)
   let options = {
     method: 'POST',
-    body: entity,
-    uri: 'http://localhost:8000/api/entities',
+    body: campaignItemChoice,
+    uri: 'http://localhost:8000/api/campaigns-items-choices',
     json: true
   }
   rp(options)

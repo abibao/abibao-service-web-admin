@@ -18,15 +18,7 @@ async.mapSeries(files, (filepath, next) => {
   const campaign = fse.readJsonSync(filepath)
   let options = {
     method: 'POST',
-    body: {
-      id: campaign.id,
-      name: campaign.name,
-      description: campaign.description,
-      company: campaign.company,
-      position: campaign.position,
-      screenThankYouContent: campaign.screenThankYouContent,
-      screenWelcomeContent: campaign.screenWelcomeContent
-    },
+    body: campaign,
     uri: 'http://localhost:8000/api/campaigns',
     json: true
   }

@@ -2,7 +2,7 @@ version: '2'
 
 services:
 
-  couchdb:
+  mariadb:
     image: library/mariadb:latest
     container_name: abibao_service
     environment:

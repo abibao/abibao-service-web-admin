@@ -10,12 +10,48 @@ module.exports = function (app) {
       primaryKey: true,
       unique: true,
       allowNull: false
+    },
+    prefix: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    suffix: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    text: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    position: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+      validate: {
+        min: 0
+      }
+    },
+    campaign: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    item: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   }, {
     getterMethods: {
       urn: function () {
         const cryptr = new Cryptr(app.get('auth').token.secret)
         return 'abibao:database:campaign_item_choice:' + cryptr.encrypt(this.id)
+      },
+      urnCampaign: function () {
+        const cryptr = new Cryptr(app.get('auth').token.secret)
+        return 'abibao:database:campaign:' + cryptr.encrypt(this.campaign)
+      },
+      urnCampaignItem: function () {
+        const cryptr = new Cryptr(app.get('auth').token.secret)
+        return 'abibao:database:campaign_item:' + cryptr.encrypt(this.item)
       }
     },
     timestamps: true,
@@ -24,6 +60,6 @@ module.exports = function (app) {
     freezeTableName: true,
     tableName: 'campaigns_items_choices'
   })
-  CampaignItemChoice.sync({force: true})
+  CampaignItemChoice.sync()
   return CampaignItemChoice
 }

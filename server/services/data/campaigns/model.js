@@ -51,7 +51,7 @@ module.exports = function (app) {
       },
       urnCompany: function () {
         const cryptr = new Cryptr(app.get('auth').token.secret)
-        return 'abibao:database:company:' + cryptr.encrypt(this.id)
+        return 'abibao:database:company:' + cryptr.encrypt(this.company)
       }
     },
     timestamps: true,
