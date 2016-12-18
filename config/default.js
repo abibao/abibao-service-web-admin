@@ -8,6 +8,10 @@ nconf.argv().env().file({ file: 'nconf.json' })
 module.exports = {
   'host': nconf.get('ABIBAO_SERVICE_HOST') || 'localhost',
   'port': nconf.get('ABIBAO_SERVICE_PORT') || 8000,
+  'superu': {
+    'email': nconf.get('ABIBAO_ADMINISTRATOR_EMAIL') || 'admin@abibao.com',
+    'password': nconf.get('ABIBAO_ADMINISTRATOR_PASSWORD') || 'password'
+  },
   'mysql': {
     'host': nconf.get('ABIBAO_MYSQL_HOST') || 'localhost',
     'port': nconf.get('ABIBAO_MYSQL_PORT') || 3306,
@@ -18,11 +22,6 @@ module.exports = {
   'public': path.resolve(__dirname, '../dist'),
   'corsWhitelist': ['localhost'],
   'auth': {
-    'idField': 'urn',
-    'token': {
-      'secret': nconf.get('ABIBAO_API_GATEWAY_SERVER_AUTH_JWT_KEY') || 'LOCALHOST',
-      'payload': ['id', 'email']
-    },
-    'local': {}
+    'secret': nconf.get('ABIBAO_API_GATEWAY_SERVER_AUTH_JWT_KEY') || 'LOCALHOST'
   }
 }

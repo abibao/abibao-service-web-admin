@@ -6,6 +6,8 @@ const compress = require('compression')
 const cors = require('cors')
 const feathers = require('feathers')
 const configuration = require('feathers-configuration')
+const auth = require('feathers-authentication')
+const jwt = require('feathers-authentication-jwt')
 const hooks = require('feathers-hooks')
 const rest = require('feathers-rest')
 const bodyParser = require('body-parser')
@@ -21,7 +23,7 @@ app.sequelize = new Sequelize(app.get('mysql').database, app.get('mysql').userna
   dialect: 'mariadb',
   host: app.get('mysql').host,
   port: app.get('mysql').port,
-  logging: console.log
+  logging: false
 })
 
 const whitelist = app.get('corsWhitelist')
@@ -41,8 +43,23 @@ app.use(compress())
   .configure(hooks())
   .configure(rest())
   .configure(socketio())
+  // Configure feathers-authentication
+  .configure(auth({secret: app.get('auth').secret}))
+  .configure(jwt())
+  // Configure services
   .configure(services)
   .configure(middlewares)
+
+// Create a user that we can use to log in
+const newUser = {
+  email: app.get('superu').email,
+  password: app.get('superu').password,
+  permissions: ['*']
+}
+
+app.service('users').create(newUser).then(user => {
+  console.log('Created default user', user)
+}).catch(console.error)
 
 app.listen(app.get('port'), app.get('host'), () => {
 })
