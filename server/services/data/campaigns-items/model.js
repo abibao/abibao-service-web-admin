@@ -97,11 +97,11 @@ module.exports = function (app) {
   }, {
     getterMethods: {
       urn: function () {
-        const cryptr = new Cryptr(app.get('auth').token.secret)
+        const cryptr = new Cryptr(app.get('auth').secret)
         return 'abibao:database:campaign_item:' + cryptr.encrypt(this.id)
       },
       urnCampaign: function () {
-        const cryptr = new Cryptr(app.get('auth').token.secret)
+        const cryptr = new Cryptr(app.get('auth').secret)
         return 'abibao:database:campaign:' + cryptr.encrypt(this.campaign)
       }
     },

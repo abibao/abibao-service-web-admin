@@ -1,5 +1,10 @@
 'use strict'
 
+/*
+const hooks = require('feathers-hooks')
+hooks.disable('external')
+*/
+
 const Sequelize = require('sequelize')
 const serveStatic = require('feathers').static
 const compress = require('compression')
@@ -7,6 +12,7 @@ const cors = require('cors')
 const feathers = require('feathers')
 const configuration = require('feathers-configuration')
 const auth = require('feathers-authentication')
+const local = require('feathers-authentication-local')
 const jwt = require('feathers-authentication-jwt')
 const hooks = require('feathers-hooks')
 const rest = require('feathers-rest')
@@ -44,7 +50,16 @@ app.use(compress())
   .configure(rest())
   .configure(socketio())
   // Configure feathers-authentication
-  .configure(auth({secret: app.get('auth').secret}))
+  .configure(auth({
+    secret: app.get('auth').token.secret,
+    cookie: {
+      enabled: app.get('auth').cookie.enabled,
+      name: app.get('auth').cookie.name
+    },
+    successRedirect: false,
+    failureRedirect: false
+  }))
+  .configure(local())
   .configure(jwt())
   // Configure services
   .configure(services)

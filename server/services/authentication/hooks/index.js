@@ -1,13 +1,13 @@
 'use strict'
 
-const auth = require('feathers-authentication').hooks
+const auth = require('feathers-authentication')
 
 exports.before = {
   all: [],
   find: [],
   get: [],
   create: [
-    auth.authenticate('jwt')
+    auth.hooks.authenticate(['jwt', 'local'])
   ],
   update: [],
   patch: [],

@@ -1,46 +1,30 @@
 'use strict'
 
-const auth = require('feathers-authentication').hooks
 const hooks = require('feathers-hooks')
-
-const issueJWT = () => {
-  return hook => {
-    const app = hook.app
-    const id = hook.result.id
-    return app.passport.createJWT({ userId: id }, app.get('auth')).then(accessToken => {
-      hook.result.accessToken = accessToken
-      return Promise.resolve(hook)
-    })
-  }
-}
+const auth = require('feathers-authentication')
+const local = require('feathers-authentication-local')
 
 exports.before = {
-  all: [],
+  all: [
+    hooks.disable('external')
+  ],
   find: [
-    auth.authenticate('jwt')
+    auth.hooks.authenticate('jwt')
   ],
   get: [],
   create: [
-    hooks.disable('external')
+    local.hooks.hashPassword({ passwordField: 'password' })
   ],
-  update: [
-    hooks.disable('external')
-  ],
-  patch: [
-    hooks.disable('external')
-  ],
-  remove: [
-    hooks.disable('external')
-  ]
+  update: [],
+  patch: [],
+  remove: []
 }
 
 exports.after = {
   all: [],
   find: [],
   get: [],
-  create: [
-    issueJWT()
-  ],
+  create: [],
   update: [],
   patch: [],
   remove: []

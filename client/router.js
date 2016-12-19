@@ -5,10 +5,14 @@ import './pages/login.tag'
 import './pages/dashboard.tag'
 
 // libs
+import feathers from './feathers'
 import route from 'riot-route'
 
-route.base('/')
+// we need to have feathers in riot
+riot.feathers = feathers
 
+// we need this to easily check the current route from every component
+route.base('#')
 riot.route = route
 riot.routeState = {
   view: ''
@@ -20,6 +24,7 @@ class Router {
     // views initialize
     this._views = ['login', 'dashboard']
     this._defaultView = 'login'
+    this._currentView = false
     // router initialize
     riot.route(this._handleRoute.bind(this))
     riot.route.exec(this._handleRoute.bind(this))
@@ -28,11 +33,13 @@ class Router {
   _handleRoute (view) {
     if (this._views.indexOf(view) === -1) {
       return riot.route(this._defaultView)
+    } else {
+      return this._loadView(view)
     }
-    this._loadView(view)
   }
 
   _loadView (view) {
+    console.log('_loadView', view)
     const opts = {
     }
     if (this._currentView) {

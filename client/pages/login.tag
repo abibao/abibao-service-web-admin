@@ -23,8 +23,8 @@
               </form>
             </div>
           </div>
-          <div class="card-action center-align">
-            <a class="btn waves-effect waves-light ui-color-light-blue">Se connecter</a>
+          <div class="card-action center-align" if={ connected }>
+            <a onclick={ login } class="btn ui-color-orange">Se connecter</a>
           </div>
         </div>
       </div>
@@ -32,8 +32,39 @@
   </div>
 
   <script>
+
+    this.connected = false
+
+    // when view mount then
+    // -- wainting for socket io to be connected
+    // ---- then try to authenticate from feathers
     this.on('mount', () => {
+      console.log('mount', riot.routeState.view)
+      riot.feathers.io.on('connect', () => {
+        console.log('socket connected')
+        this.connected = true
+        this.update()
+        riot.feathers.authenticate().catch((error) => {
+          console.error('authenticate', error)
+        })
+      })
     })
+
+    this.on('updated', () => {
+      console.log('updated', riot.routeState.view)
+    })
+
+    this.login = (e) => {
+      /* console.log('login')
+      riot.feathers.authenticate({
+        type: 'local',
+        'email': email.value,
+        'password': password.value
+      }).catch((error) => {
+        console.error('authenticate', error)
+      }) */
+    }
+
   </script>
 
   <style scoped>
