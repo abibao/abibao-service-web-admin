@@ -2,7 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const nodeModulesPath = path.resolve(__dirname, 'node_modules')
 const buildPath = path.resolve(__dirname, 'dist')
@@ -20,13 +20,12 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       riot: 'riot',
-      $: 'jquery',
-      PouchDB: 'pouchdb'
-    }),
-    new HtmlWebpackPlugin({
+      $: 'jquery'
+    })
+    /* new HtmlWebpackPlugin({
       title: 'Abibao Service / Administrator',
       template: 'index.ejs'
-    })
+    })*/
   ],
   module: {
     noParse: ['riot'],
@@ -36,6 +35,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js|\.tag$/,
+        exclude: /node_modules/, include: /client/,
         loader: 'babel-loader',
         query: {cacheDirectory: true, presets: ['es2015']}
       },

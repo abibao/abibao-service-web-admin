@@ -2,15 +2,36 @@ version: '2'
 
 services:
 
-  mariadb:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: abibao_phpmyadmin
+    privileged: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      PMA_HOST: abibao_mysql
+      PMA_USER: abibao
+      PMA_PASSWORD: abibao
+    ports:
+      - 8006:80
+  mysql:
     image: library/mariadb:latest
-    container_name: abibao_service
+    container_name: abibao_mysql
+    privileged: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     environment:
       MYSQL_ROOT_PASSWORD: abibao
       MYSQL_DATABASE: abibao
       MYSQL_USER: abibao
       MYSQL_PASSWORD: abibao
     volumes:
-      - /home/gperreymond/Workspaces/abibao-service-web-admin/volumes/databases/mariadb:/var/lib/mysql
+      - ./volumes/databases/mysql:/var/lib/mysql
     ports:
       - 3306:3306

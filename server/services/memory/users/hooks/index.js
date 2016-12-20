@@ -1,23 +1,27 @@
 'use strict'
 
 const hooks = require('feathers-hooks')
-const auth = require('feathers-authentication')
 const local = require('feathers-authentication-local')
 
 exports.before = {
-  all: [
-    hooks.disable('external')
-  ],
+  all: [],
   find: [
-    auth.hooks.authenticate('jwt')
+    hooks.disable('external')
   ],
   get: [],
   create: [
+    hooks.disable('external'),
     local.hooks.hashPassword({ passwordField: 'password' })
   ],
-  update: [],
-  patch: [],
-  remove: []
+  update: [
+    hooks.disable('external')
+  ],
+  patch: [
+    hooks.disable('external')
+  ],
+  remove: [
+    hooks.disable('external')
+  ]
 }
 
 exports.after = {

@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .js || true",
     "test": "istanbul cover _mocha -- test/*test.js --compilers .:test/utils/compiler.js",
     "watch": "webpack -w",
+    "build": "webpack --optimize-minimize --progress --colors",
     "start": "DEBUG=feathers* node server/start.js",
     "open-coverage": "open ./coverage/lcov-report/index.html"
   },
@@ -59,7 +60,7 @@
     "eslint": "3.12.2",
     "eslint-plugin-riot": "0.1.6",
     "extract-text-webpack-plugin": "1.0.1",
-    "feathers-client": "^1.8.0",
+    "feathers-authentication-client": "0.1.6",
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.24.1",
     "istanbul": "0.4.5",
@@ -67,6 +68,7 @@
     "lab": "11.2.1",
     "less": "2.7.1",
     "less-loader": "2.2.3",
+    "localstorage-memory": "1.0.2",
     "materialize-css": "0.97.8",
     "mocha": "3.2.0",
     "postcss": "5.2.6",
@@ -75,7 +77,6 @@
     "riot": "3.0.5",
     "riot-route": "3.0.2",
     "riotjs-loader": "3.0.0",
-    "socket.io-client": "1.7.2",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.14.0"

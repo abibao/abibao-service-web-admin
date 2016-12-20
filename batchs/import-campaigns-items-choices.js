@@ -7,12 +7,14 @@ const fse = require('fs-extra')
 const colors = require('colors/safe')
 const rp = require('request-promise')
 
-const patternPath = path.resolve(__dirname, '../volumes/prod/rethinkdb/campaigns_items_choices') + '/*.json'
+const patternPath = path.resolve(__dirname, '../volumes/databases/rethinkdb/campaigns_items_choices') + '/*.json'
 const files = glob.sync(patternPath, {
   nodir: true,
   dot: true,
   ignore: ['index.js']
 })
+
+console.log(colors.yellow.bold('***** CAMPAIGNS ITEMS CHOICES *****'))
 
 async.mapSeries(files, (filepath, next) => {
   const campaignItemChoice = fse.readJsonSync(filepath)
@@ -36,7 +38,8 @@ async.mapSeries(files, (filepath, next) => {
     console.log('\n', colors.bgRed.bold(' ERROR! '))
     console.log(err)
     process.exit(1)
-  } else {
+  }
+  else {
     console.log('\n', colors.bgGreen.bold(' DONE! '), '\n')
     process.exit(0)
   }
