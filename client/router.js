@@ -1,8 +1,12 @@
 /*global riot*/
 
+// components
+import './components/menu.tag'
+
 // pages
 import './pages/login.tag'
 import './pages/dashboard.tag'
+import './pages/campaigns.tag'
 
 // libs
 import client from './client'
@@ -22,7 +26,7 @@ class Router {
 
   constructor () {
     // views initialize
-    this._views = ['login', 'dashboard']
+    this._views = ['login', 'dashboard', 'campaigns']
     this._defaultView = 'dashboard'
     this._currentView = false
     // router initialize
