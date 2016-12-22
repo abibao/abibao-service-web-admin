@@ -1,5 +1,7 @@
 'use strict'
 
+const args = process.argv.slice(2)
+
 const glob = require('glob')
 const async = require('async')
 const path = require('path')
@@ -7,7 +9,8 @@ const fse = require('fs-extra')
 const colors = require('colors/safe')
 const rp = require('request-promise')
 
-const patternPath = path.resolve(__dirname, '../volumes/databases/rethinkdb/entities') + '/*.json'
+const patternPath = path.resolve(args[0], 'entities', '*.json')
+
 const files = glob.sync(patternPath, {
   nodir: true,
   dot: true,

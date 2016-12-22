@@ -19,8 +19,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      riot: 'riot',
-      $: 'jquery'
+      riot: 'riot'
     })
     /* new HtmlWebpackPlugin({
       title: 'Abibao Service / Administrator',
