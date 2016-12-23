@@ -8,9 +8,10 @@
     "lint": "eslint . --ext .js || true",
     "test": "istanbul cover _mocha -- test/*test.js --compilers .:test/utils/compiler.js",
     "watch": "webpack -w",
+    "batch:import": "./batchs/import.sh",
     "build": "webpack --optimize-minimize --progress --colors",
     "start": "DEBUG=feathers* node server/start.js",
-    "open-coverage": "open ./coverage/lcov-report/index.html"
+    "coverage:open": "open ./coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "fs-extra": "1.0.0",
     "mysql": "2.12.0",
     "nconf": "0.8.4",
+    "progress": "^1.1.8",
     "request": "2.79.0",
     "request-promise": "4.1.1",
     "sequelize": "3.28.0"

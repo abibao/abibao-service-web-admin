@@ -6,6 +6,7 @@ const campaigns = require('./data/campaigns')
 const campaignsItems = require('./data/campaigns-items')
 const campaignsItemsCoices = require('./data/campaigns-items-choices')
 const entities = require('./data/entities')
+// const surveys = require('./data/surveys')
 
 module.exports = function () {
   const app = this
@@ -15,4 +16,5 @@ module.exports = function () {
   app.configure(campaignsItems)
   app.configure(campaignsItemsCoices)
   app.configure(entities)
+  // app.configure(surveys)
 }

@@ -1,5 +1,23 @@
 'use strict'
 
+const populate = require('feathers-hooks-common').populate
+const serialize = require('feathers-hooks-common').serialize
+
+const schema = {
+  populate: {
+    include: [{
+      service: 'api/entities',
+      nameAs: 'company',
+      parentField: 'company',
+      childField: 'id'
+    }]
+  },
+  serialize: {
+    only: ['id', 'urn', 'company', 'name', 'description', 'position', 'screenWelcomeContent', 'screenThankYouContent', 'updatedAt', 'createdAt'],
+    exclude: ['_include', '_elapsed']
+  }
+}
+
 exports.before = {
   all: [],
   find: [],
@@ -12,8 +30,14 @@ exports.before = {
 
 exports.after = {
   all: [],
-  find: [],
-  get: [],
+  find: [
+    populate({schema: schema.populate, profile: true}),
+    serialize(schema.serialize)
+  ],
+  get: [
+    populate({schema: schema.populate, profile: true}),
+    serialize(schema.serialize)
+  ],
   create: [],
   update: [],
   patch: [],

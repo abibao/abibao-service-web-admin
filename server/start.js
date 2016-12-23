@@ -46,16 +46,22 @@ app.use(compress())
   .use('/', serveStatic(app.get('public')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
-  .configure(hooks())
   .configure(rest())
   .configure(socketio())
+  .configure(hooks())
   // Configure feathers-authentication
   .configure(auth({
     secret: app.get('auth').token.secret,
     cookie: {
       enabled: app.get('auth').cookie.enabled,
-      name: app.get('auth').cookie.name
+      name: app.get('auth').cookie.name,
+      secure: true
     },
+    jwt: {
+      audience: 'http://abibao.com',
+      issuer: 'api.abibao.com'
+    },
+    session: true,
     successRedirect: false,
     failureRedirect: false
   }))

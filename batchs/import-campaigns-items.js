@@ -8,6 +8,7 @@ const path = require('path')
 const fse = require('fs-extra')
 const colors = require('colors/safe')
 const rp = require('request-promise')
+const ProgressBar = require('progress')
 
 const patternPath = path.resolve(args[0], 'campaigns_items', '*.json')
 
@@ -15,6 +16,12 @@ const files = glob.sync(patternPath, {
   nodir: true,
   dot: true,
   ignore: ['index.js']
+})
+var bar = new ProgressBar('progress [:bar] :percent :etas', {
+  complete: '=',
+  incomplete: ' ',
+  width: 30,
+  total: files.length
 })
 
 console.log(colors.yellow.bold('***** CAMPAIGNS ITEMS *****'))
@@ -29,11 +36,12 @@ async.mapSeries(files, (filepath, next) => {
   }
   rp(options)
     .then(() => {
-      console.log(colors.green.bold(options.body.id, 'has been created'))
+      bar.tick()
       next()
     })
-    .catch((error) => {
-      console.log(colors.red.bold(options.body.id, error.message))
+    .catch(() => {
+      // TOTO : error in a file ?
+      bar.tick()
       next()
     })
 }, (err, results) => {
