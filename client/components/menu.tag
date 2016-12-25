@@ -1,43 +1,59 @@
 <ui-menu>
 
-  <!-- Menu toggle -->
-  <a href="#menu" id="menuLink" class="menu-link">
-    <!-- Hamburger icon -->
-    <span></span>
-  </a>
-
-  <div id="menu">
-    <div class="pure-menu">
-      <a class="pure-menu-heading" href="#"><img class="valign" src="/img/abibao-logo-gris-jaune.png"></a>
-      <ul class="pure-menu-list">
-        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-        <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
-        <li class="pure-menu-item" class="menu-item-divided pure-menu-selected"><a href="#" class="pure-menu-link">Services</a></li>
-        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
-      </ul>
+  <div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link" onclick={ toggleAll }>
+      <!-- Hamburger icon -->
+      <span></span>
+    </a>
+    <div id="menu">
+      <div class="pure-menu">
+        <ul class="pure-menu-list">
+          <li class="pure-menu-heading">Backoffice</li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Compagnies</a></li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Associations</a></li>
+          <li class="pure-menu-item"><a onclick={ goCampaigns } href="#campaigns" class="pure-menu-link">Campagnes</a></li>
+          <li class="pure-menu-heading">Statistiques</li>
+          <li class="pure-menu-item"><a onclick={ goDashboard } href="#dashboard" class="pure-menu-link">Dashboard</a></li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">KPI</a></li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Batchs</a></li>
+          <li class="pure-menu-item"><a onclick={ logout } href="#login" class="pure-menu-link">Se déconnecter</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-
-  <!--
-  <div>
-    <ul id="slide-out" class="side-nav fixed ui-color-dark-blue">
-      <li class="ui-color-white valign-wrapper ui-padding-1">
-        <img class="valign" src="/img/abibao-logo-gris-jaune.png">
-      </li>
-      <li><a onclick={ logout } class="ui-color-white" href="#"><i class="material-icons right ui-color-white-text">cloud</i>Se déconnecter</a></li>
-      <li><a class="waves-effect ui-color-white-text" onclick={ goDashboard } href="#dashboard"><i class="material-icons right ui-color-white-text">cloud</i>Dashboard</a></li>
-      <li><a class="waves-effect ui-color-white-text" href="#"><i class="material-icons right ui-color-white-text">cloud</i>Compagnies</a></li>
-      <li><a class="waves-effect ui-color-white-text" href="#"><i class="material-icons right ui-color-white-text">cloud</i>Associations</a></li>
-      <li><a class="waves-effect ui-color-white-text" onclick={ goCampaigns } href="#campaigns"><i class="material-icons right ui-color-white-text">cloud</i>Campagnes</a></li>
-      <li><a class="waves-effect ui-color-white-text" href="#"><i class="material-icons right ui-color-white-text">cloud</i>Statistiques</a></li>
-      <li><a class="waves-effect ui-color-white-text" href="#"><i class="material-icons right ui-color-white-text">cloud</i>Batchs</a></li>
-    </ul>
-  </div>
-  -->
 
   <script>
 
     this.client = riot.feathers
+
+    this.toggleAll = (e) => {
+      const layout = document.getElementById('layout')
+      const menu = document.getElementById('menu')
+      const menuLink = document.getElementById('menuLink')
+      let active = 'active'
+      e.preventDefault()
+      this.toggleClass(layout, active)
+      this.toggleClass(menu, active)
+      this.toggleClass(menuLink, active)
+    }
+
+    this.toggleClass = (element, className) => {
+      let classes = element.className.split(/\s+/)
+      let length = classes.length
+      let i = 0
+      for(; i < length; i++) {
+        if (classes[i] === className) {
+          classes.splice(i, 1)
+          break
+        }
+      }
+      // The className is not found
+      if (length === classes.length) {
+        classes.push(className);
+      }
+      element.className = classes.join(' ')
+    }
 
     this.logout = (e) => {
       console.log(riot.routeState.view, 'logout()')
@@ -54,5 +70,8 @@
     }
 
   </script>
+
+  <style scoped>
+  </style>
 
 </ui-menu>

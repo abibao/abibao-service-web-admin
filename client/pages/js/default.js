@@ -25,11 +25,10 @@ const init = function (page) {
       page.connected = true
       page.loading = false
       page.update()
-      page.services.getCampaigns()
-      page.services.getCompanies()
-      page.services.getCharities()
+      page.services.initialize()
     }).catch((error) => {
       console.error(riot.routeState.view, 'client.authenticate()', error)
+      riot.route('login')
     })
   })
 
@@ -43,9 +42,7 @@ const init = function (page) {
   page.on('mount', () => {
     console.log(riot.routeState.view, 'mount', page.socket.id)
     if (page.socket.id) {
-      page.services.getCampaigns()
-      page.services.getCompanies()
-      page.services.getCharities()
+      page.services.initialize()
     }
   })
 

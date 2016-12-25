@@ -1,0 +1,94 @@
+@menu-with: 200px;
+
+/*
+Add transition to containers so they can push in and out.
+*/
+#layout,
+#menu,
+.menu-link {
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+/*
+This is the parent `<div>` that contains the menu and the content area.
+*/
+#layout {
+  position: relative;
+  left: 0;
+  padding-left: 0;
+}
+#layout.active #menu {
+  left: @menu-with;
+  width: @menu-with;
+}
+#layout.active .menu-link {
+  left: @menu-with;
+}
+/*
+The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
+appears on the left side of the page.
+*/
+#menu {
+  margin-left: -@menu-with; /* "#menu" width */
+  width: @menu-with;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000; /* so the menu or its navicon stays above all content */
+  background: #181818;
+  border: solid 2px rgb(66, 184, 221);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+/*
+`.menu-link` represents the responsive menu toggle that shows/hides on
+small screens.
+*/
+.menu-link {
+  position: fixed;
+  display: block; /* show this only on small screens */
+  top: 0;
+  left: 0; /* "#menu width" */
+  background: rgb(66, 184, 221);
+  font-size: 10px; /* change this value to increase/decrease button size */
+  z-index: 10;
+  width: 2em;
+  height: 2em;
+  padding: 2em;
+}
+.menu-link:hover,
+.menu-link:focus {
+  background: rgb(66, 184, 221);
+}
+.menu-link span {
+  position: relative;
+  display: block;
+}
+.menu-link span,
+.menu-link span:before,
+.menu-link span:after {
+  background: rgb(66, 184, 221);
+  width: 100%;
+  height: 0.2em;
+}
+.menu-link span:before,
+.menu-link span:after {
+  position: absolute;
+  margin-top: -0.6em;
+  content: " ";
+}
+.menu-link span:after {
+  margin-top: 0.6em;
+}
+/*
+menu heading
+*/
+#menu .pure-menu-heading {
+  font-size: 110%;
+  color: rgb(66, 184, 221);
+  margin: 0;
+}

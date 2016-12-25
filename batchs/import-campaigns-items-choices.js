@@ -49,8 +49,7 @@ async.mapSeries(files, (filepath, next) => {
     console.log('\n', colors.bgRed.bold(' ERROR! '))
     console.log(err)
     process.exit(1)
-  }
-  else {
+  } else {
     console.log('\n', colors.bgGreen.bold(' DONE! '), '\n')
     process.exit(0)
   }
