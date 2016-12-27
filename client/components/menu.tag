@@ -1,23 +1,19 @@
 <ui-menu>
 
   <div id="layout">
-    <!-- Menu toggle -->
-    <a href="#menu" id="menuLink" class="menu-link" onclick={ toggleAll }>
-      <!-- Hamburger icon -->
-      <span></span>
-    </a>
+    <button id="menuLink" onclick={ toggleAll } class="button-square button-menu pure-button menu-link"><i class="fa fa-bars" aria-hidden="true"></i></button>
     <div id="menu">
       <div class="pure-menu">
         <ul class="pure-menu-list">
           <li class="pure-menu-heading">Backoffice</li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Compagnies</a></li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Associations</a></li>
-          <li class="pure-menu-item"><a onclick={ goCampaigns } href="#campaigns" class="pure-menu-link">Campagnes</a></li>
+          <li class="pure-menu-item"><a href="/campaigns" class="pure-menu-link">Campagnes</a></li>
           <li class="pure-menu-heading">Statistiques</li>
-          <li class="pure-menu-item"><a onclick={ goDashboard } href="#dashboard" class="pure-menu-link">Dashboard</a></li>
+          <li class="pure-menu-item"><a href="/dashboard" class="pure-menu-link">Dashboard</a></li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">KPI</a></li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Batchs</a></li>
-          <li class="pure-menu-item"><a onclick={ logout } href="#login" class="pure-menu-link">Se déconnecter</a></li>
+          <li class="pure-menu-item"><a onclick={ logout } href="#" class="pure-menu-link">Se déconnecter</a></li>
         </ul>
       </div>
     </div>
@@ -56,17 +52,9 @@
     }
 
     this.logout = (e) => {
-      console.log(riot.routeState.view, 'logout()')
+      console.log('client try to logout')
       this.client.logout()
-      riot.route('login')
-    }
-
-    this.goDashboard = (e) => {
-      riot.route('dashboard')
-    }
-
-    this.goCampaigns = (e) => {
-      riot.route('campaigns')
+      window.location = '/login'
     }
 
   </script>

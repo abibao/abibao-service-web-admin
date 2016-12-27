@@ -32,7 +32,7 @@ The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
 appears on the left side of the page.
 */
 #menu {
-  margin-left: -@menu-with; /* "#menu" width */
+  margin-left: -(@menu-with);
   width: @menu-with;
   position: fixed;
   top: 0;
@@ -40,7 +40,6 @@ appears on the left side of the page.
   bottom: 0;
   z-index: 1000; /* so the menu or its navicon stays above all content */
   background: #181818;
-  border: solid 2px rgb(66, 184, 221);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -50,39 +49,11 @@ small screens.
 */
 .menu-link {
   position: fixed;
-  display: block; /* show this only on small screens */
-  top: 0;
-  left: 0; /* "#menu width" */
-  background: rgb(66, 184, 221);
-  font-size: 10px; /* change this value to increase/decrease button size */
-  z-index: 10;
-  width: 2em;
-  height: 2em;
-  padding: 2em;
-}
-.menu-link:hover,
-.menu-link:focus {
-  background: rgb(66, 184, 221);
-}
-.menu-link span {
-  position: relative;
   display: block;
-}
-.menu-link span,
-.menu-link span:before,
-.menu-link span:after {
-  background: rgb(66, 184, 221);
-  width: 100%;
-  height: 0.2em;
-}
-.menu-link span:before,
-.menu-link span:after {
-  position: absolute;
-  margin-top: -0.6em;
-  content: " ";
-}
-.menu-link span:after {
-  margin-top: 0.6em;
+  top: 0;
+  left: 0;
+  color: #fff;
+  z-index: 1000; /* so the menu or its navicon stays above all content */
 }
 /*
 menu heading

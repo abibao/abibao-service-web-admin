@@ -2,6 +2,7 @@
 
 const populate = require('feathers-hooks-common').populate
 const serialize = require('feathers-hooks-common').serialize
+const uuid = require('../../../globalHooks').uuid
 
 const schema = {
   populate: {
@@ -22,7 +23,9 @@ exports.before = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [
+    uuid()
+  ],
   update: [],
   patch: [],
   remove: []

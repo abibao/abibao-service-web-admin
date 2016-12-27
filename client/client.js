@@ -1,3 +1,5 @@
+'use strict'
+
 import feathers from 'feathers/client'
 import socketio from 'feathers-socketio/client'
 import hooks from 'feathers-hooks'

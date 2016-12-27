@@ -1,58 +1,31 @@
 /*global riot*/
+'use strict'
+
+import 'riot-routehandler'
 
 // components
 import './components/menu.tag'
-
 // pages
 import './pages/login.tag'
 import './pages/dashboard.tag'
 import './pages/campaigns.tag'
+import './pages/campaign-editor.tag'
 
-// libs
+// feathers + socket.io
 import client from './client'
-import route from 'riot-route'
-
-// we need to have feathers in riot
 riot.feathers = client
 
-// we need this to easily check the current route from every component
-riot.route = route
-riot.route.base('#')
-riot.routeState = {
-  view: ''
+var logger = (ctx, next, page) => {
+  console.log(ctx.canonicalPath)
+  next()
 }
 
-class Router {
+const routes = [
+  {route: '*', use: logger},
+  {route: '/campaigns', tag: 'campaigns'},
+  {route: '/campaigns/:id?', tag: 'campaign-editor'},
+  {route: '/dashboard', tag: 'dashboard'},
+  {route: '/login', tag: 'login'}
+]
 
-  constructor () {
-    // views initialize
-    this._views = ['login', 'dashboard', 'campaigns']
-    this._defaultView = 'dashboard'
-    this._currentView = false
-    // router initialize
-    riot.route(this._handleRoute.bind(this))
-    riot.route.exec(this._handleRoute.bind(this))
-  }
-
-  _handleRoute (view) {
-    if (this._views.indexOf(view) === -1) {
-      return riot.route(this._defaultView)
-    }
-    else {
-      return this._loadView(view)
-    }
-  }
-
-  _loadView (view) {
-    const opts = {
-    }
-    if (this._currentView) {
-      this._currentView.unmount(true)
-    }
-    riot.routeState.view = view
-    this._currentView = riot.mount('#view', view, opts)[0]
-  }
-
-}
-
-export default new Router()
+riot.mount('routehandler', {routes: routes, options: {hashbang: false}})
