@@ -4,7 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const nodeModulesPath = path.resolve(__dirname, 'node_modules')
+// const nodeModulesPath = path.resolve(__dirname, 'node_modules')
 const buildPath = path.resolve(__dirname, 'dist')
 const contextPath = path.join(__dirname, '/client')
 const entryPath = path.join(contextPath, '/app.js')
@@ -19,7 +19,9 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      riot: 'riot'
+      riot: 'riot',
+      $: 'jquery',
+      toastr: 'toastr'
     })
     /* new HtmlWebpackPlugin({
       title: 'Abibao Service / Administrator',
@@ -37,7 +39,6 @@ module.exports = {
       { test: /\.scss$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
-      { test: /\.(png|jpg|gif|svg)$/, include: [nodeModulesPath], loader: 'url-loader?limit=8192&name=img/[hash].[ext]' },
       { test: /\.(png|jpg|gif|svg)$/, include: path.join(contextPath, 'assets/img'), loader: 'url-loader?limit=8192&name=img/[hash].[ext]' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' }

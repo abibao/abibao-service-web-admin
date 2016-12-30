@@ -1,9 +1,14 @@
-'use strict'
-
+/* *************** */
 // styles
-import 'font-awesome-webpack'
+/* *************** */
+
 import 'purecss/build/pure.css'
+import 'toastr/build/toastr.css'
 import './assets/css/styles.less'
 
-// router
+/* *************** */
+// javascripts
+/* *************** */
+
+import 'toastr/build/toastr.min.js'
 import './router'

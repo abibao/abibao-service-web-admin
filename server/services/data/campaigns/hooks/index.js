@@ -11,10 +11,15 @@ const schema = {
       nameAs: 'company',
       parentField: 'company',
       childField: 'id'
+    }, {
+      service: 'api/campaigns-items',
+      nameAs: 'items',
+      parentField: 'id',
+      childField: 'campaign'
     }]
   },
   serialize: {
-    only: ['id', 'urn', 'company', 'name', 'description', 'position', 'screenWelcomeContent', 'screenThankYouContent', 'updatedAt', 'createdAt'],
+    only: ['id', 'urn', 'company', 'items', 'name', 'description', 'position', 'screenWelcomeContent', 'screenThankYouContent', 'updatedAt', 'createdAt'],
     exclude: ['_include', '_elapsed']
   }
 }
@@ -32,15 +37,12 @@ exports.before = {
 }
 
 exports.after = {
-  all: [],
-  find: [
+  all: [
     populate({schema: schema.populate, profile: true}),
     serialize(schema.serialize)
   ],
-  get: [
-    populate({schema: schema.populate, profile: true}),
-    serialize(schema.serialize)
-  ],
+  find: [],
+  get: [],
   create: [],
   update: [],
   patch: [],

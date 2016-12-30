@@ -8,9 +8,9 @@
           <li class="pure-menu-heading">Backoffice</li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Compagnies</a></li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Associations</a></li>
-          <li class="pure-menu-item"><a href="/campaigns" class="pure-menu-link">Campagnes</a></li>
+          <li class="pure-menu-item"><a href="/campaigns/" class="pure-menu-link">Campagnes</a></li>
           <li class="pure-menu-heading">Statistiques</li>
-          <li class="pure-menu-item"><a href="/dashboard" class="pure-menu-link">Dashboard</a></li>
+          <li class="pure-menu-item"><a href="/dashboard/" class="pure-menu-link">Dashboard</a></li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">KPI</a></li>
           <li class="pure-menu-item"><a href="#" class="pure-menu-link pure-menu-disabled">Batchs</a></li>
           <li class="pure-menu-item"><a onclick={ logout } href="#" class="pure-menu-link">Se déconnecter</a></li>
@@ -20,8 +20,6 @@
   </div>
 
   <script>
-
-    this.client = riot.feathers
 
     this.toggleAll = (e) => {
       const layout = document.getElementById('layout')
@@ -53,7 +51,7 @@
 
     this.logout = (e) => {
       console.log('client try to logout')
-      this.client.logout()
+      // feathers.client.logout()
       window.location = '/login'
     }
 
