@@ -61,29 +61,28 @@
 
   <script>
 
-    this.id = 'campaigns::' + new Date().getTime()
-    this.companies = false
-    this.campaigns = false
+    import init from './../default'
+    init(this, 'campaigns')
 
-    // tag events
-    this.on('*', (event) => {
+    /*
+    this.on('updated', () => {
       if (!this.opts.page) {
         return false
       }
-      console.log(this.id, event)
-      switch(event) {
-        case 'mount':
-          // feathers is started or not ?
-          if (!riot.feathers.client()) {
-            riot.feathers.toastr['warning']('Connexion au serveur...')
-            riot.feathers.initialize()
-          }
-          break;
-        default:
-          break;
+      console.log(this.id, 'override', 'updated', this.opts)
+      let _list = document.getElementsByClassName('list')
+      if (_list.length > 0 ) {
+        console.log(this.id, 'document.getElementsByClassName', _list)
+        let options = {
+          valueNames: [
+            {data: ['position', 'company', 'name']}
+          ]
+        }
+        let itemList = new List('item-list', options)
+        itemList.sort('company', { order: 'asc' })
       }
     })
-    
+    */
     /*
     feathers.client.io.on('connect', () => {
       if (!this.opts.page) {

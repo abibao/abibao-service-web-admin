@@ -1,7 +1,7 @@
 /*global riot*/
 
 import 'riot-routehandler'
-// import List from 'list.js'
+import List from 'list.js'
 import Feathers from './feathers'
 
 // components
