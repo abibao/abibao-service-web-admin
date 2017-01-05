@@ -64,6 +64,20 @@
     import init from './../default'
     init(this, 'campaigns')
 
+    this.removeCampaign = (e) => {
+      let currentCampaign = e.item.campaign
+      riot.feathers.service('api/campaigns')
+        .remove(currentCampaign.id)
+        .then((result) => {
+          return riot.feathers.service('api/campaigns').find()
+        })
+        .then((result) => {
+          console.log(this.id, 'campaigns loaded')
+          this.campaigns = result
+          this.update()
+        })
+    }
+
     /*
     this.on('updated', () => {
       if (!this.opts.page) {
