@@ -19,7 +19,7 @@ const schema = {
     }]
   },
   serialize: {
-    only: ['id', 'urn', 'company', 'items', 'name', 'description', 'position', 'screenWelcomeContent', 'screenThankYouContent', 'updatedAt', 'createdAt'],
+    only: ['id', 'urn', 'company', 'urnCompany', 'items', 'name', 'description', 'position', 'screenWelcomeContent', 'screenThankYouContent', 'updatedAt', 'createdAt'],
     exclude: ['_include', '_elapsed']
   }
 }

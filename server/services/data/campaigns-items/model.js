@@ -53,7 +53,7 @@ module.exports = function (app) {
     },
     addCustomOption: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
     },
     addCustomOptionLabel: {
@@ -63,12 +63,12 @@ module.exports = function (app) {
     },
     multipleSelections: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
     },
     randomize: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
     },
     required: {

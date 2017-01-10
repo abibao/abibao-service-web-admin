@@ -4,8 +4,11 @@ const uuid = require('uuid')
 
 module.exports.uuid = function () {
   return function (hook) {
-    hook.data.id = uuid.v4()
-    console.log(hook.data)
-    return hook
+    if (hook.data.id) {
+      return hook
+    } else {
+      hook.data.id = uuid.v4()
+      return hook
+    }
   }
 }

@@ -1,5 +1,7 @@
 'use strict'
 
+const uuid = require('../../../globalHooks').uuid
+
 exports.before = {
   all: [],
   find: [],
@@ -14,7 +16,9 @@ exports.after = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [
+    uuid()
+  ],
   update: [],
   patch: [],
   remove: []

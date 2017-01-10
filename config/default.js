@@ -9,8 +9,8 @@ module.exports = {
   host: nconf.get('ABIBAO_SERVICE_HOST') || 'localhost',
   port: nconf.get('ABIBAO_SERVICE_PORT') || 8000,
   superu: {
-    email: nconf.get('ABIBAO_ADMINISTRATOR_EMAIL') || 'gilles@abibao.com',
-    password: nconf.get('ABIBAO_ADMINISTRATOR_PASSWORD') || 'azer1234'
+    email: nconf.get('ABIBAO_ADMINISTRATOR_EMAIL') || 'administrator@abibao.com',
+    password: nconf.get('ABIBAO_ADMINISTRATOR_PASSWORD') || 'password'
   },
   mysql: {
     host: nconf.get('ABIBAO_MYSQL_HOST') || 'localhost',

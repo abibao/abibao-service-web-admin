@@ -25,7 +25,7 @@
     config(this, 'login')
 
     this.login = (e) => {
-      console.log('user try to connect')
+      console.log('user try to login')
       this.client.authenticate({
         strategy: 'local',
         email: email.value,

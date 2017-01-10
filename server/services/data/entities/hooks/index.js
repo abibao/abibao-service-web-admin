@@ -1,5 +1,15 @@
 'use strict'
 
+const serialize = require('feathers-hooks-common').serialize
+const uuid = require('../../../globalHooks').uuid
+
+const schema = {
+  serialize: {
+    only: ['id', 'urn', 'name', 'contact', 'url', 'type', 'icon', 'picture', 'avatar', 'title', 'hangs', 'description', 'usages', 'updatedAt', 'createdAt'],
+    exclude: ['_include', '_elapsed']
+  }
+}
+
 exports.before = {
   all: [],
   find: [],
@@ -11,10 +21,14 @@ exports.before = {
 }
 
 exports.after = {
-  all: [],
+  all: [
+    serialize(schema.serialize)
+  ],
   find: [],
   get: [],
-  create: [],
+  create: [
+    uuid()
+  ],
   update: [],
   patch: [],
   remove: []

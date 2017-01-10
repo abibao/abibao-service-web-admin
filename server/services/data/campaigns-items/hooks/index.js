@@ -2,6 +2,7 @@
 
 const populate = require('feathers-hooks-common').populate
 const serialize = require('feathers-hooks-common').serialize
+const uuid = require('../../../globalHooks').uuid
 
 const schema = {
   populate: {
@@ -13,7 +14,7 @@ const schema = {
     }]
   },
   serialize: {
-    only: ['id', 'urn', 'type', 'position', 'question', 'description', 'tags', 'label', 'placeholder', 'addCustomOption', 'addCustomOptionLabel', 'multipleSelections', 'randomize', 'required', 'maxLength', 'minimum', 'maximum', 'choices', 'updatedAt', 'createdAt'],
+    only: ['id', 'urn', 'campaign', 'urnCampaign', 'choices', 'type', 'position', 'question', 'description', 'tags', 'label', 'placeholder', 'addCustomOption', 'addCustomOptionLabel', 'multipleSelections', 'randomize', 'required', 'maxLength', 'minimum', 'maximum', 'choices', 'updatedAt', 'createdAt'],
     exclude: ['_include', '_elapsed']
   }
 }
@@ -22,7 +23,9 @@ exports.before = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [
+    uuid()
+  ],
   update: [],
   patch: [],
   remove: []
