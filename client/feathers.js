@@ -29,7 +29,6 @@ class Feathers {
   }
   initialize () {
     console.log(this.id, 'initialize')
-    this.toastr['warning']('Connexion au serveur...')
     this._client = new Client()
     this._client.on('client-connected', () => {
       console.log(this.id, 'client is connected')

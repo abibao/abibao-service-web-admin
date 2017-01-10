@@ -8,7 +8,6 @@
     "lint": "eslint . --ext .js || true",
     "test": "istanbul cover _mocha -- test/*test.js --compilers .:test/utils/compiler.js",
     "watch": "webpack -w",
-    "batch:import": "./batchs/import.sh",
     "build": "webpack --optimize-minimize --progress --colors",
     "start": "DEBUG=feathers* node server/start.js",
     "coverage:open": "open ./coverage/lcov-report/index.html"
@@ -80,7 +79,7 @@
     "postcss": "5.2.9",
     "postcss-loader": "1.2.1",
     "purecss": "0.6.2",
-    "riot": "3.0.5",
+    "riot": "3.0.7",
     "riot-routehandler": "3.0.1",
     "riotjs-loader": "3.0.0",
     "sass-loader": "4.1.1",

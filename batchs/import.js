@@ -59,7 +59,7 @@ client.io.on('disconnect', () => {
 })
 
 const batch = (table, callback) => {
-  const patternPath = path.resolve(__dirname, '../../../api-gateway/src/tools/.cache/prod/rethinkdb', table.replace(/-/gi, '_'), '*.json')
+  const patternPath = path.resolve(__dirname, '../../api-gateway/src/tools/.cache/prod/rethinkdb', table.replace(/-/gi, '_'), '*.json')
   const files = glob.sync(patternPath, {
     nodir: true,
     dot: true,
