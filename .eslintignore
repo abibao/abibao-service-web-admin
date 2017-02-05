@@ -1,7 +1,7 @@
-node_modules
 *.log
 .DS_Store
 
-databases
-dist
-coverage
+.git/
+volumes/
+coverage/
+node_modules/

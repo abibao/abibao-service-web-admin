@@ -1,10 +1,5 @@
 'use strict'
 
-/*
-const hooks = require('feathers-hooks')
-hooks.disable('external')
-*/
-
 const Sequelize = require('sequelize')
 const serveStatic = require('feathers').static
 const compress = require('compression')
@@ -44,9 +39,6 @@ app.use(compress())
   .options('*', cors(corsOptions))
   .use(cors(corsOptions))
   .use('/', serveStatic(app.get('public')))
-  .use('/campaigns/*', serveStatic(app.get('public')))
-  .use('/dashboard', serveStatic(app.get('public')))
-  .use('/login', serveStatic(app.get('public')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .configure(rest())

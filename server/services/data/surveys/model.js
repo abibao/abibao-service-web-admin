@@ -11,66 +11,48 @@ module.exports = function (app) {
       unique: true,
       defaultValue: Sequelize.UUIDV4
     },
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    contact: {
-      type: Sequelize.STRING,
-      unique: true,
-      allowNull: false,
-      validate: {
-        isEmail: true
-      }
-    },
-    url: {
-      type: Sequelize.STRING,
+    isAbibao: {
+      type: Sequelize.BOOLEAN,
       allowNull: true,
-      defaultValue: '',
-      validate: {
-        isUrl: true
-      }
+      defaultValue: false
     },
-    type: {
-      type: Sequelize.ENUM('none', 'abibao', 'charity', 'company'),
-      allowNull: false
-    },
-    icon: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: 'images/icons/default.png'
-    },
-    picture: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: 'images/pictures/default.png'
-    },
-    avatar: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: 'images/avatars/default.png'
-    },
-    title: {
+    individual: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    hangs: {
+    campaign: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    description: {
-      type: Sequelize.TEXT,
+    charity: {
+      type: Sequelize.STRING,
       allowNull: false
     },
-    usages: {
-      type: Sequelize.TEXT,
+    company: {
+      type: Sequelize.STRING,
       allowNull: false
     }
   }, {
     getterMethods: {
       urn: function () {
         const cryptr = new Cryptr(app.get('auth').secret)
-        return 'abibao:database:entity:' + cryptr.encrypt(this.id)
+        return 'abibao:database:survey:' + cryptr.encrypt(this.id)
+      },
+      urnIndividual: function () {
+        const cryptr = new Cryptr(app.get('auth').secret)
+        return 'abibao:database:individual:' + cryptr.encrypt(this.individual)
+      },
+      urnCampaign: function () {
+        const cryptr = new Cryptr(app.get('auth').secret)
+        return 'abibao:database:campaign:' + cryptr.encrypt(this.campaign)
+      },
+      urnCharity: function () {
+        const cryptr = new Cryptr(app.get('auth').secret)
+        return 'abibao:database:entity:' + cryptr.encrypt(this.charity)
+      },
+      urnCompany: function () {
+        const cryptr = new Cryptr(app.get('auth').secret)
+        return 'abibao:database:company:' + cryptr.encrypt(this.company)
       }
     },
     timestamps: true,

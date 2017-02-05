@@ -19,6 +19,10 @@ module.exports = {
     username: nconf.get('ABIBAO_MYSQL_USERNAME') || 'abibao',
     password: nconf.get('ABIBAO_MYSQL_PASSWORD') || 'abibao'
   },
+  paginate: {
+    default: 5,
+    max: 25
+  },
   public: path.resolve(__dirname, '../dist'),
   corsWhitelist: ['localhost'],
   auth: {

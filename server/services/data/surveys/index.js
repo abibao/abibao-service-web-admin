@@ -3,17 +3,14 @@
 const Service = require('feathers-sequelize')
 const hooks = require('./hooks')
 
-const EntityModel = require('./../surveys/model')
+const SurveyModel = require('./../surveys/model')
 
 module.exports = function () {
   const app = this
-  const Entity = EntityModel(app)
+  const Survey = SurveyModel(app)
   app.use('/api/surveys', Service({
-    Model: Entity,
-    paginate: {
-      default: 25,
-      max: 50
-    }
+    Model: Survey,
+    paginate: app.get('paginate')
   }))
   const service = app.service('api/surveys')
   service.before(hooks.before)

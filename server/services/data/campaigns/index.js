@@ -10,10 +10,7 @@ module.exports = function () {
   const Campaign = CampaignModel(app)
   app.use('/api/campaigns', Service({
     Model: Campaign,
-    paginate: {
-      default: 25,
-      max: 50
-    }
+    paginate: app.get('paginate')
   }))
   const service = app.service('api/campaigns')
   service.before(hooks.before)

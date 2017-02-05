@@ -3,16 +3,16 @@
 const Service = require('feathers-sequelize')
 const hooks = require('./hooks')
 
-const EntityModel = require('./../entities/model')
+const IndividualModel = require('./../individuals/model')
 
 module.exports = function () {
   const app = this
-  const Entity = EntityModel(app)
-  app.use('/api/entities', Service({
-    Model: Entity,
+  const Individual = IndividualModel(app)
+  app.use('/api/individuals', Service({
+    Model: Individual,
     paginate: app.get('paginate')
   }))
-  const service = app.service('api/entities')
+  const service = app.service('api/individuals')
   service.before(hooks.before)
   service.after(hooks.after)
 }

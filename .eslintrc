@@ -1,8 +1,6 @@
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "riot"
-  ],
+  "plugins": [],
   "parserOptions": {
     ecmaVersion: 6,
     "ecmaFeatures": {

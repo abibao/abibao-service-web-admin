@@ -1,4 +1,5 @@
-npm-debug.log
+nconf.json
+*.log
 node_modules
 coverage
 *~
