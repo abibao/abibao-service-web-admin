@@ -23,7 +23,7 @@ module.exports = {
     default: 5,
     max: 25
   },
-  public: path.resolve(__dirname, '../dist'),
+  public: path.resolve(__dirname, '../build'),
   corsWhitelist: ['localhost'],
   auth: {
     token: {
